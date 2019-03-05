@@ -4,36 +4,6 @@ import { Platform, StyleSheet, Text, View, Button } from "react-native";
 import Todo from "./components/Todo";
 
 export default class App extends Component {
-  // É chamado assim que o component é renderizado em tela
-  // Primeiro método executado após montado
-  // Chamada API, manipular estados etc
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        todos: [...this.state.todos, { id: Math.random(), text: "Novo todo" }]
-      });
-    }, 3000);
-  }
-
-  // Estático, não tem acesso ao this
-  // Executado antes do didmount quanto antes de cada atualização
-  // (alteração em props ou state)
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return { text: nextProps.text };
-  }
-
-  // Executado a cada atualização, antes mesmo do componente atualizar
-  // Evita o render ser executado em determinada condição
-  shouldComponentUpdate(nextProps, prevState) {
-    return true;
-  }
-
-  // Component atualizado, pode executar aqui dentro
-  componentDidUpdate(prevProps, prevState) {}
-
-  // Executado antes do componente sumir da tela
-  componentWillUnmount() {}
-
   state = {
     usuario: "Thiago",
     todos: [
@@ -51,21 +21,42 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.usuario}</Text>
-        {this.state.todos.map(todo => (
-          <Todo key={todo.id} title={todo.text} />
-        ))}
-        <Button title="Adicionar todo" onPress={this.addTodo} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box}>
+          <Text>Teste</Text>
+        </View>
       </View>
     );
   }
 }
 
+// Não há herança de estilos no react-native,
+// exceto um Text dentro de outro Text
 const styles = StyleSheet.create({
   container: {
+    // flex: 1 diz que o container preenche a tela inteira
     flex: 1,
+    // flexDirection: 'column' é o padrão
+    flexDirection: "row",
+    // flexWrap não deixa o componente sair da tela, quebrando pra linha abaixo
+    flexWrap: "wrap",
+    // Alinhamentos horizontalmente quando row
+    // Alinhamento verticalmente quando column
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    // Alinha o inverso do justifyContent (apenas com uma linha)
+    //alignItems: "center",
+    // Usar alignContent quando tive rmais de uma linha
+    alignContent: "center",
+    backgroundColor: "#333"
+  },
+  box: {
+    width: 80,
+    height: 80,
+    backgroundColor: "#f00",
+    color: "#FFF",
+    margin: 20,
+    transform: [{ rotateZ: "20deg" }]
   }
 });
