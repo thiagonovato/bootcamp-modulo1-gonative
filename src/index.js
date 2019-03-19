@@ -24,6 +24,7 @@ export default class App extends Component {
         <View style={styles.box} />
         <View style={styles.box} />
         <View style={styles.box} />
+        <View style={styles.box} />
         <View style={styles.box}>
           <Text>Teste</Text>
         </View>
@@ -56,7 +57,6 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "#f00",
     color: "#FFF",
-    margin: 20,
-    transform: [{ rotateZ: "20deg" }]
+    margin: 20
   }
 });
